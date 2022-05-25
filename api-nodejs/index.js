@@ -9,10 +9,6 @@ const port = process.env.port || 3300;
  // import Coach
  var authCoach = require("./routes/authCoach.js") ;
 
- //import trainer 
- var trainerRoute = require("./routes/trainers")
- //import search experience
- var experience = require("./routes/Experience")
 dotenv.config();
 
 // connect to DB 
@@ -25,9 +21,6 @@ app.use( express.json() ) ;
  //Route middlewares ;
 app.use("/api/Coach" , authCoach) ;
 
-app.use("/api/Trainer" , trainerRoute) ;
-
-app.use("/api/experience" , experience) ;
 
 app.use( "/api/posts" , postRoute );
 
