@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const mongoose = require('mongoose') ;
 
-const userSchema = mongoose.model('Coach', new mongoose.Schema({
+const Coach = mongoose.model('Coach', new mongoose.Schema({
     
     id:{
         type: Number ,
@@ -47,5 +47,5 @@ function validateCoach(Coach) {
     };
     return Joi.validate(Coach, schema);
 }
-exports.Coach = this.Coach;
+exports.Coach = Coach;
 exports.validate = validateCoach;

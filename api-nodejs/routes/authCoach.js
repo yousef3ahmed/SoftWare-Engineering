@@ -1,5 +1,5 @@
 const router = require( 'express' ).Router() ;
-const { Coach, validate } = require('../model/Coach');
+const {Coach, validate } = require('../model/Coach');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
@@ -12,8 +12,8 @@ router.post( '/register' ,async ( req , res ) =>{
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
-    const coahUser = await Coach.findOne({ email: req.body.email });
-    if (coahUser) {
+     let found = await Coach.findOne({email:req.body.email})
+    if (found) {
         return res.status(400).send('That Email already exisits!');
     } else {
         
@@ -38,36 +38,7 @@ router.post( '/register' ,async ( req , res ) =>{
         res.status( 400 ).send( err ) ;
     }
     }
-    /*
-    // check if the user in the database ;
-    const emailExsit = await Coach.findOne({ email: req.body.email }) ;
-    if( emailExsit ){
-        return res.status( 400 ).send( 'Email already exists'  ) ;
-    }
-
-
-    // hash password ;
-    const salt = await bcrypt.genSalt( 10 ) ;
-    const hashPassword = await bcrypt.hash( req.body.password , salt ) ;
-    
-    nxt_ip++ ;
-    const user = new Coach({
-        id:nxt_ip,
-        name: req.body.name,
-        email: req.body.email ,
-        password: hashPassword ,
-        isAdmin: req.body.isAdmin
-    });
-
-    
-
-    try{
-        const saveUser = await user.save() ;
-        // res.send( saveUser ) ; 
-        res.send({ user: user._id }) ;  
-    }catch( err ){
-        res.status( 400 ).send( err ) ;
-    }*/
+   
 }); 
 
 
