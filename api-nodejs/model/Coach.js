@@ -1,6 +1,7 @@
+const Joi = require('@hapi/joi');
 const mongoose = require('mongoose') ;
 
-const userSchema = mongoose.Schema({
+const userSchema = mongoose.model('Coach', new mongoose.Schema({
     
     id:{
         type: Number ,
@@ -34,6 +35,17 @@ const userSchema = mongoose.Schema({
         require:true
     }
 
-});
+}));
 
-module.exports = mongoose.model( 'Coach' , userSchema ) ;
+function validateCoach(Coach) {
+    const schema = {
+        name: Joi.string().min(5).max(50).required(),
+        email: Joi.string().min(5).max(255).required().email(),
+        password: Joi.string().min(5).max(255).required(),
+        isAdmin:Joi.boolean().required()
+     
+    };
+    return Joi.validate(Coach, schema);
+}
+exports.Coach = this.Coach;
+exports.validate = validateCoach;
